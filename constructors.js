@@ -96,9 +96,8 @@ this.isAlive = true;
    * @param  {number} damage  Amount of damage to deal to the spellcaster
    */
 Spellcaster.prototype.inflictDamage = function(damage,health) {
-   this.damage=damage;
     this.health = this.health-damage;
-    if (this.health === 0 || Math.sign(this.health) === -1) {
+    if (this.health === 0 || this.health < 0) {
         this.isAlive = false;
     }
 };
@@ -111,10 +110,9 @@ Spellcaster.prototype.inflictDamage = function(damage,health) {
    * @param  {number} cost      The amount of mana to spend.
    * @return {boolean} success  Whether mana was successfully spent.
    */
-Spellcaster.prototype.spendMana = function(mana,cost) {
-this.cost = cost;
+Spellcaster.prototype.spendMana = function(cost) {
 
-if (this.mana > this.cost || this.mana === this.cost) {
+if (this.mana >= this.cost) {
     this.mana = this.mana - this.cost;
     return true;
 } else {
@@ -147,3 +145,9 @@ if (this.mana > this.cost || this.mana === this.cost) {
    * @param  {Spellcaster} target         The spell target to be inflicted.
    * @return {boolean}                    Whether the spell was successfully cast.
    */
+Spellcaster.prototype.invoke = function(spell,target) {
+    if (spell instanceof Spell && spell instanceof DamageSpell) //checking if spell
+    if (spell instanceof DamageSpell && target instanceof Spellcaster) //checking if target
+    if (this.spendMana(spell.cost)) //checking for spell cost
+} this.spendMana();
+this.inflictDamage();
